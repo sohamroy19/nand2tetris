@@ -6,6 +6,9 @@
 /**
  * Exclusive-or gate:
  * out = not (a == b)
+ *     = a'b + ab'
+ *     = (ab)'b + a(ab)'
+ *     = (ab)'(a + b)
  */
 
 CHIP Xor {
@@ -13,5 +16,7 @@ CHIP Xor {
     OUT out;
 
     PARTS:
-    // Put your code here:
+    Nand(a=a, b=b, out=aNandB);
+    Or(a=a, b=b, out = aOrB);
+    And(a=aNandB, b=aOrB, out=out);
 }
